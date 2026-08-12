@@ -66,7 +66,7 @@ final class CacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function get()
+    public function get(): mixed
     {
         return $this->value;
     }
@@ -99,7 +99,7 @@ final class CacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set($value): CacheItemInterface
+    public function set(mixed $value): static
     {
         $this->value = $value;
 
@@ -109,7 +109,7 @@ final class CacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt($expiration): CacheItemInterface
+    public function expiresAt(?\DateTimeInterface $expiration): static
     {
         if (! ($expiration === null || $expiration instanceof DateTimeInterface)) {
             throw new InvalidArgumentException('$expiration must be null or an instance of DateTimeInterface');
@@ -123,7 +123,7 @@ final class CacheItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter($time): CacheItemInterface
+    public function expiresAfter(int|DateInterval|null $time): static
     {
         if ($time === null) {
             return $this->expiresAt(null);
